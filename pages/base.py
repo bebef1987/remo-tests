@@ -19,11 +19,17 @@ class Base(Page):
 
         _main_menu_locator = (By.CSS_SELECTOR, '#navigation-box > ul.nav-bar > li > a')
         _faq_locator = (By.CSS_SELECTOR, '#navigation-box li:nth-child(7) a')
+        _labs_locator = (By.CSS_SELECTOR, '#navigation-box li:nth-child(6) a')
 
         @property
         def main_menu(self):
             return [self.MainMenu(self.testsetup, item) for item in self.find_elements(*self._main_menu_locator)]
-        
+
+        def click_labs_link(self):
+            self.selenium.find_element(*self._labs_locator).click()
+            from pages.labs import Labs
+            return Labs(self.testsetup)
+
         def click_faq_link(self):
             self.selenium.find_element(*self._faq_locator).click()
             from pages.faq import FAQ
