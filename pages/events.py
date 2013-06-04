@@ -19,6 +19,7 @@ class Events(Base):
     _events_table_locator = (By.CSS_SELECTOR, '#events-table-body')
     _events_result_locator = (By.CSS_SELECTOR, '#events-table-body .event-item')
     _events_owner_locator = (By.CSS_SELECTOR, 'div.events-table-owner a')
+    _create_event_locator = (By.ID, 'events-create-button')
 
     def go_to_events_page(self):
         self.selenium.get(self.base_url + '/events/')
@@ -48,3 +49,6 @@ class Events(Base):
         element = self.selenium.find_element(*self._events_filter_locator)
         element.send_keys(search_term)
         WebDriverWait(self.selenium, self.timeout).until(lambda s: not s.find_element_by_id('canvasLoader').is_displayed())
+
+    def click_create_event(self):
+        self.selenium.find_element(*self._create_event_locator).click()
